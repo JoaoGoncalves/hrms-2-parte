@@ -19,7 +19,7 @@ export class AppComponent {
 
 
 /// first example of signals
-const count = signal(0);
+/* const count = signal(0);
 console.log(count());
 count.set(1);
 console.log(count());
@@ -40,4 +40,4 @@ console.log(names())
 addName('Joao');
 console.log(names())
 addName('José');
-console.log(names())
+console.log(names()) */
