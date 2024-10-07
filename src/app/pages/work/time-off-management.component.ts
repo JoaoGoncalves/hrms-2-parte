@@ -69,16 +69,17 @@ export class TimeOffManagementComponent {
 
   constructor() {
 
+    // 2- Let’s use this to synchronize our selected type with localStorage
     effect(()=> {
       localStorage.setItem('selectedType', this.selectedType())
     })
 
-
-
-    // 6_5_1 - side effects
+    // 1 - side effects
     /* const count = signal(10);
     const increment = () => count.update((v) => v + 1);
 
+    // callback in effect will be called when the count signal’s value changes
+    //! This is because signal effects are always asynchronous, no matter if the code inside the callback does not deal with any async logic
     effect(() => {
       console.log(`Count is: ${count()}`);
     });
@@ -107,6 +108,7 @@ export class TimeOffManagementComponent {
     },
   ]);
 
+  // 2- To bring that value back when the user visits the page we can just change the default value of the selectedType signal
   selectedType = signal<
     | 'Vacation'
     | 'Sick Leave'
@@ -115,6 +117,7 @@ export class TimeOffManagementComponent {
     | 'Other'
     | ''
   >(localStorage.getItem('selectedType') as any ?? '');
+  //!any type-casting command because localStorage.setItem returns a value of type string
 
   resolvedRequests = computed(() =>
     //this.requests().filter(r => r.status !== 'Pending')
@@ -151,32 +154,4 @@ export class TimeOffManagementComponent {
   }
 }
 
-/* //1
-const count = signal(0);
-const increment = () => count.update( v => v + 1);
-const doubleCount = computed( () => count() * 2 );
 
-console.log(count());
-console.log(doubleCount());
-increment();
-console.log(count());
-console.log(doubleCount()); */
-
-/* //2
-const a = signal(2);
-const b = signal(3);
-const sum = computed(() => a() + b());
-console.log(sum());
-b.set(7);
-console.log(sum()) */
-
-//3
-/* const a = signal(2);
-const b = signal(3);
-const sum = computed(() => {
-  console.log('Recalculating');
-  return a() + b();
-}); */
-/* sum();
-sum();
-sum(); */
