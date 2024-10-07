@@ -1,5 +1,5 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
 
 @Component({
@@ -86,3 +86,33 @@ export class TimeOffManagementComponent {
     );
   }
 }
+
+/* //1
+const count = signal(0);
+const increment = () => count.update( v => v + 1);
+const doubleCount = computed( () => count() * 2 );
+
+console.log(count());
+console.log(doubleCount());
+increment();
+console.log(count());
+console.log(doubleCount()); */
+
+/* //2
+const a = signal(2);
+const b = signal(3);
+const sum = computed(() => a() + b());
+console.log(sum());
+b.set(7);
+console.log(sum()) */
+
+//3
+const a = signal(2);
+const b = signal(3);
+const sum = computed(() => {
+  console.log('Recalculating');
+  return a() + b();
+});
+/* sum();
+sum();
+sum(); */
