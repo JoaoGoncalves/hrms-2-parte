@@ -1,5 +1,5 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
 import { FormsModule } from '@angular/forms';
 
@@ -9,15 +9,21 @@ import { FormsModule } from '@angular/forms';
   imports: [NgIf, NgFor, DatePipe, FormsModule],
   template: `
     <h2>Time Off Management</h2>
-    <h3>Resolved {{ resolvedRequests().length }} / {{  filteredRequests().length }} Unresolved </h3>
-    <select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($any($event))">
-    <option value="">All</option>
-    <option value="Vacation">Vacation</option>
-    <option value="Sick Leave">Sick Leave</option>
-    <option value="Maternity Leave">Maternity Leave</option>
-    <option value="Paternity Leave">Paternity Leave</option>
-    <option value="Other">Other</option>
-</select>
+    <h3>
+      Resolved {{ resolvedRequests().length }} /
+      {{ filteredRequests().length }} Unresolved
+    </h3>
+    <select
+      [ngModel]="selectedType()"
+      (ngModelChange)="selectedType.set($any($event))"
+    >
+      <option value="">All</option>
+      <option value="Vacation">Vacation</option>
+      <option value="Sick Leave">Sick Leave</option>
+      <option value="Maternity Leave">Maternity Leave</option>
+      <option value="Paternity Leave">Paternity Leave</option>
+      <option value="Other">Other</option>
+    </select>
     <table>
       <thead>
         <tr>
@@ -60,6 +66,27 @@ import { FormsModule } from '@angular/forms';
   styles: ``,
 })
 export class TimeOffManagementComponent {
+
+  constructor() {
+
+    effect(()=> {
+      localStorage.setItem('selectedType', this.selectedType())
+    })
+
+
+
+    // 6_5_1 - side effects
+    /* const count = signal(10);
+    const increment = () => count.update((v) => v + 1);
+
+    effect(() => {
+      console.log(`Count is: ${count()}`);
+    });
+
+    increment();
+    increment(); */
+  }
+
   requests = signal<TimeOffRequest[]>([
     {
       id: 1,
@@ -81,21 +108,23 @@ export class TimeOffManagementComponent {
   ]);
 
   selectedType = signal<
-    'Vacation' | 'Sick Leave' | 'Maternity Leave' | 'Paternity Leave' | 'Other' | ''
-  >('');
-
+    | 'Vacation'
+    | 'Sick Leave'
+    | 'Maternity Leave'
+    | 'Paternity Leave'
+    | 'Other'
+    | ''
+  >(localStorage.getItem('selectedType') as any ?? '');
 
   resolvedRequests = computed(() =>
     //this.requests().filter(r => r.status !== 'Pending')
-    this.filteredRequests().filter(r => r.status !== 'Pending')
+    this.filteredRequests().filter((r) => r.status !== 'Pending')
   );
 
   filteredRequests = computed(() => {
     const type = this.selectedType();
-    return this.requests().filter(r => (type ? r.type === type : true));
-
+    return this.requests().filter((r) => (type ? r.type === type : true));
   });
-
 
   approveRequest(request: TimeOffRequest) {
     this.requests.update((requests) => {
@@ -142,12 +171,12 @@ b.set(7);
 console.log(sum()) */
 
 //3
-const a = signal(2);
+/* const a = signal(2);
 const b = signal(3);
 const sum = computed(() => {
   console.log('Recalculating');
   return a() + b();
-});
+}); */
 /* sum();
 sum();
 sum(); */
