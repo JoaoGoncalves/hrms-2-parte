@@ -1,3 +1,16 @@
+/*
+
+COMPUTED SIgnals
+
+- Observables are immutable and we can only create new Observables from existing ones
+
+- signals, we saw that they are mutable, but we haven’t yet approached the topic of creating new signals from existing ones
+-it is very important to be able to derive new values from existing signals
+- computed() : Signals created with this function are called computed signals
+
+*/
+
+
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
@@ -87,8 +100,8 @@ export class TimeOffManagementComponent {
   }
 }
 
-/* //1
-const count = signal(0);
+//1 , it takes a callback, which has no arguments, and the value that this callback returns becomes the value of the resulting signal
+/* const count = signal(0);
 const increment = () => count.update( v => v + 1);
 const doubleCount = computed( () => count() * 2 );
 
@@ -98,21 +111,25 @@ increment();
 console.log(count());
 console.log(doubleCount()); */
 
-/* //2
-const a = signal(2);
+
+//2 - We can also use the computed function to create signals derived from multiple other signals
+/* const a = signal(2);
 const b = signal(3);
 const sum = computed(() => a() + b());
 console.log(sum());
 b.set(7);
 console.log(sum()) */
 
-//3
-const a = signal(2);
+//3 - signals created with computed will recalculate their value when there are changes, and store it, so reading their value does not result in a new run of the calculation
+/* const a = signal(2);
 const b = signal(3);
 const sum = computed(() => {
   console.log('Recalculating');
   return a() + b();
 });
-/* sum();
-sum();
-sum(); */
+// sum();
+// sum();
+// sum(); */
+
+//! computed returns a Signal and not a WritableSignal.
+//? a computed signal will be destroyed when the context in which it was created is gone
