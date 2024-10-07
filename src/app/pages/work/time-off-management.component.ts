@@ -1,7 +1,9 @@
 import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
 import { FormsModule } from '@angular/forms';
+import { TimeOffRequestService } from '../../services/time-off-request.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-time-off-management',
@@ -66,46 +68,16 @@ import { FormsModule } from '@angular/forms';
   styles: ``,
 })
 export class TimeOffManagementComponent {
+  private readonly timeoffRequestService = inject(TimeOffRequestService);
+  requests = toSignal(this.timeoffRequestService.getRequests(), {initialValue: []});
 
   constructor() {
-
     effect(()=> {
       localStorage.setItem('selectedType', this.selectedType())
     })
 
-
-
-    // 6_5_1 - side effects
-    /* const count = signal(10);
-    const increment = () => count.update((v) => v + 1);
-
-    effect(() => {
-      console.log(`Count is: ${count()}`);
-    });
-
-    increment();
-    increment(); */
   }
 
-  requests = signal<TimeOffRequest[]>([
-    {
-      id: 1,
-      employeeId: 1,
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-      type: 'Vacation',
-      status: 'Pending',
-    },
-    {
-      id: 2,
-      employeeId: 2,
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-      type: 'Sick Leave',
-      status: 'Approved',
-      comment: 'Feeling pretty sick today :(',
-    },
-  ]);
 
   selectedType = signal<
     | 'Vacation'
