@@ -1,3 +1,12 @@
+/*
+
+6.3.2 Handling signals in Angular components
+
+- use the set and update methods to handle the data changes
+
+*/
+
+
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
