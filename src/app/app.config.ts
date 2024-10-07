@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     //importProvidersFrom(HttpClientModule),
     provideHttpClient(
-      withInterceptors([authInterceptor, addApiUrlInterceptor, employeePermissionsInterceptor])
+      withInterceptors([authInterceptor, addApiUrlInterceptor, /* employeePermissionsInterceptor */])
     ),
    /*  {provide: TruncateLimit, useValue: 120} */
   ]
