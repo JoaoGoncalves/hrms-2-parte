@@ -1,3 +1,16 @@
+/*
+Now, we are going to add something more valuable for the HR administration, namely a page that helps handle time-off requests from employees. This page will display a list of time-offs
+
+- admin to approve or reject them
+- searching through requests by employee name, filtering approved/rejected/pending requests
+- shows statistical data about how many employees
+
+*/
+//! acrescentar rotas para  "/time-off"
+// ver tipo de dados do Type: "TimeOffRequest"
+// criar a componente
+
+
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
@@ -41,6 +54,7 @@ import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type
 })
 export class TimeOffManagementComponent {
 
+  /* initially we will only use dummy data: without a service to load the actual data */
   requests = signal<TimeOffRequest[]>([
     {
         id: 1,
@@ -62,3 +76,13 @@ export class TimeOffManagementComponent {
 ]);
 
 }
+
+/*
+NOTAS para referenciar:
+
+- requests() no ngFor
+have often heard that calling functions in the template is a sort of bad practice, eventually will take lots of (unnecessary) time to complete, impacting performance
+
+- However, in the case of signals, this function call essentially immediately returns the value that is already there, meaning it is not something that will impact performance
+
+*/

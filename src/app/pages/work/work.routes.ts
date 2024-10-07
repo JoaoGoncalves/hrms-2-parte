@@ -7,5 +7,5 @@ import { TimeOffManagementComponent } from "./time-off-management.component";
 export const routes : Routes = [
   {path: 'projects', pathMatch: 'full', component: ProjectListComponent},
   {path: 'projects/:id', component: ProjectDetailsComponent},
-  { path: 'time-off', component: TimeOffManagementComponent },
+  {path: 'time-off', component: TimeOffManagementComponent },
 ]

@@ -18,26 +18,4 @@ export class AppComponent {
 }
 
 
-/// first example of signals
-/* const count = signal(0);
-console.log(count());
-count.set(1);
-console.log(count());
-count.set(count() + 1);
-console.log(count());
 
-const increment = () => count.update(value => value + 1);
-increment();
-console.log(count());
-increment();
-console.log(count());
-
-console.log('--------------------');
-
-const names = signal<string[]>([]);
-const addName = (name: string) => names.update( value => [...value, name])
-console.log(names())
-addName('Joao');
-console.log(names())
-addName('José');
-console.log(names()) */
