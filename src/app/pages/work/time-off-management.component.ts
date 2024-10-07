@@ -8,57 +8,81 @@ import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type
   imports: [NgIf, NgFor, DatePipe],
   template: `
     <h2>Time Off Management</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Employee</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Comment</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let request of requests()">
-                    <td>{{ request.employeeId }}</td>
-                    <td>{{ request.startDate | date }}</td>
-                    <td>{{ request.endDate | date }}</td>
-                    <td>{{ request.type }}</td>
-                    <td>{{ request.status }}</td>
-                    <td>{{ request.comment }}</td>
-                    <td>
-                        <button *ngIf="request.status === 'Pending'">Approve</button>
-                        <button *ngIf="request.status === 'Pending'">Reject</button>
-                        <button>Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Comment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests()">
+          <td>{{ request.employeeId }}</td>
+          <td>{{ request.startDate | date }}</td>
+          <td>{{ request.endDate | date }}</td>
+          <td>{{ request.type }}</td>
+          <td>{{ request.status }}</td>
+          <td>{{ request.comment }}</td>
+          <td>
+            <button *ngIf="request.status === 'Pending'"
+            (click)="approveRequest(request)">Approve</button>
+            <button *ngIf="request.status === 'Pending'"
+            (click)="rejectRequest(request)">Reject</button>
+            <button (click)="deleteRequest(request)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   `,
-  styles: ``
+  styles: ``,
 })
 export class TimeOffManagementComponent {
-
   requests = signal<TimeOffRequest[]>([
     {
-        id: 1,
-        employeeId: 1,
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
-        type: 'Vacation',
-        status: 'Pending',
+      id: 1,
+      employeeId: 1,
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+      type: 'Vacation',
+      status: 'Pending',
     },
     {
-        id: 2,
-        employeeId: 2,
-        startDate: new Date().toISOString(),
-        endDate: new Date().toISOString(),
-        type: 'Sick Leave',
-        status: 'Approved',
-        comment: 'Feeling pretty sick today :(',
+      id: 2,
+      employeeId: 2,
+      startDate: new Date().toISOString(),
+      endDate: new Date().toISOString(),
+      type: 'Sick Leave',
+      status: 'Approved',
+      comment: 'Feeling pretty sick today :(',
     },
-]);
+  ]);
 
+  approveRequest(request: TimeOffRequest) {
+    this.requests.update((requests) => {
+      const index = requests.findIndex((r) => r.id === request.id);
+      return requests.map((item, i) =>
+        i === index ? { ...item, status: 'Approved' } : item
+      );
+    });
+  }
+
+  rejectRequest(request: TimeOffRequest) {
+    this.requests.update((requests) => {
+      const index = requests.findIndex((r) => r.id === request.id);
+      return requests.map((item, i) =>
+        i === index ? { ...item, status: 'Rejected' } : item
+      );
+    });
+  }
+
+  deleteRequest(request: TimeOffRequest) {
+    this.requests.update((requests) =>
+      requests.filter((r) => r.id !== request.id)
+    );
+  }
 }
