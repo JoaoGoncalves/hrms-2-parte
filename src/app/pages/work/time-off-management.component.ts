@@ -1,3 +1,9 @@
+/*
+
+progress counter of how many resolved time off requests are there versus the total number of requests
+
+*/
+
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
@@ -9,15 +15,31 @@ import { FormsModule } from '@angular/forms';
   imports: [NgIf, NgFor, DatePipe, FormsModule],
   template: `
     <h2>Time Off Management</h2>
+
+    <!-- 1 - mostrar estatisticas -->
     <h3>Resolved {{ resolvedRequests().length }} / {{  filteredRequests().length }} Unresolved </h3>
+
+    <!-- 2-
+    - add a select dropdown with all the options, and bind it with this new signal using an ngModel
+    //! paying attention to here: the fact that we wrote (ngModelChange)="selectedType.set($any($event))"
+
+    //! [(ngModel)]=”something” is actually syntactic sugar, a shorthand syntax equivalent to [ngModel]=”something” (ngModelChange)=”something = $event”
+
+    //! we would write something like [(ngModel)]=”selectedType”
+
+    //! with signals, we cannot just assign values to them, and need to call the set method
+
+    //! we used the $any helper function, which in Angular templates type-casts a value to type any
+
+    -->
     <select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($any($event))">
-    <option value="">All</option>
-    <option value="Vacation">Vacation</option>
-    <option value="Sick Leave">Sick Leave</option>
-    <option value="Maternity Leave">Maternity Leave</option>
-    <option value="Paternity Leave">Paternity Leave</option>
-    <option value="Other">Other</option>
-</select>
+      <option value="">All</option>
+      <option value="Vacation">Vacation</option>
+      <option value="Sick Leave">Sick Leave</option>
+      <option value="Maternity Leave">Maternity Leave</option>
+      <option value="Paternity Leave">Paternity Leave</option>
+      <option value="Other">Other</option>
+  </select>
     <table>
       <thead>
         <tr>
@@ -31,6 +53,9 @@ import { FormsModule } from '@angular/forms';
         </tr>
       </thead>
       <tbody>
+        <!-- 3-
+        we can replace requests() (which represent all the requests, without any filters), with the new filteredRequests computed signal
+        -->
         <tr *ngFor="let request of filteredRequests()">
           <td>{{ request.employeeId }}</td>
           <td>{{ request.startDate | date }}</td>
@@ -80,19 +105,23 @@ export class TimeOffManagementComponent {
     },
   ]);
 
+  // 2 - filtering functionality based on the type of requests
   selectedType = signal<
     'Vacation' | 'Sick Leave' | 'Maternity Leave' | 'Paternity Leave' | 'Other' | ''
   >('');
 
 
   resolvedRequests = computed(() =>
-    //this.requests().filter(r => r.status !== 'Pending')
+    //1- this.requests().filter(r => r.status !== 'Pending')
+
+    //4 - resolvedRequests signals can be modified to show the proportion of resolved requests among the ones filtered
     this.filteredRequests().filter(r => r.status !== 'Pending')
   );
 
+ // 3 - Finally, we need a computed signal, which will calculate the filtered users based on the selected type:
   filteredRequests = computed(() => {
     const type = this.selectedType();
-    return this.requests().filter(r => (type ? r.type === type : true));
+    return this.requests().filter(r => (type ? r.type === type : r));
 
   });
 
@@ -122,32 +151,3 @@ export class TimeOffManagementComponent {
   }
 }
 
-/* //1
-const count = signal(0);
-const increment = () => count.update( v => v + 1);
-const doubleCount = computed( () => count() * 2 );
-
-console.log(count());
-console.log(doubleCount());
-increment();
-console.log(count());
-console.log(doubleCount()); */
-
-/* //2
-const a = signal(2);
-const b = signal(3);
-const sum = computed(() => a() + b());
-console.log(sum());
-b.set(7);
-console.log(sum()) */
-
-//3
-const a = signal(2);
-const b = signal(3);
-const sum = computed(() => {
-  console.log('Recalculating');
-  return a() + b();
-});
-/* sum();
-sum();
-sum(); */
