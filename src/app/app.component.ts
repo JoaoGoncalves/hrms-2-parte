@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './shared/componentes/footer.component';
 import { FileUploadComponent } from './shared/componentes/file-upload.component';
 import { interval, map, of } from 'rxjs';
+import { ToObservableComponent } from "./shared/componentes/to-observable.component";
 /* import { log } from './shared/operators/has-permissions.operators'; */
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, FileUploadComponent],
+  imports: [RouterOutlet, FooterComponent, FileUploadComponent, ToObservableComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
