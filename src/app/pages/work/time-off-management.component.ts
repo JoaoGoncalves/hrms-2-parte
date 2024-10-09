@@ -19,11 +19,12 @@
 
 
 import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, Injector, signal } from '@angular/core';
 import { TimeOffRequest } from '../../infrastructure/types/time-off-request.type';
 import { FormsModule } from '@angular/forms';
 import { TimeOffRequestService } from '../../services/time-off-request.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-time-off-management',
@@ -88,6 +89,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styles: ``,
 })
 export class TimeOffManagementComponent {
+
+  //private readonly injector = inject(Injector)
+
   private readonly timeoffRequestService = inject(TimeOffRequestService);
   requests = toSignal(this.timeoffRequestService.getRequests(), {initialValue: []});
 
@@ -160,5 +164,17 @@ export class TimeOffManagementComponent {
     /* this.requests.update((requests) =>
       requests.filter((r) => r.id !== request.id)
     ); */
+
+    //! exemplo, mas que nao funciona, estamos a afetar o resultado a um novo Signla, quebrado os outros "Computed" signals, temos que arranjar forma de o observable de chamadas HTTp, nao termine, e re-emita novos dados
+
+    //? solucoes destas ocorrem com bibliotecas como o NgRx, neste caso tremos que implementar a solução com uma outra estrutura, que faremos mais a frente.
+
+    /* this.requests = toSignal(
+      this.timeoffRequestService
+          .deleteRequest(request.id)
+          .pipe(
+            switchMap(()=>this.timeoffRequestService.getRequests())
+          ),{initialValue: this.requests(), injector: this.injector}
+    ) */
   }
 }
