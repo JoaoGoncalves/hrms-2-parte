@@ -78,7 +78,7 @@ export class TimeOffManagementComponent {
     /* const count = signal(10);
     const increment = () => count.update((v) => v + 1);
 
-    // callback in effect will be called when the count signal’s value changes
+    / callback in effect will be called when the count signal’s value changes
     //! This is because signal effects are always asynchronous, no matter if the code inside the callback does not deal with any async logic
     effect(() => {
       console.log(`Count is: ${count()}`);
@@ -117,7 +117,7 @@ export class TimeOffManagementComponent {
     | 'Other'
     | ''
   >(localStorage.getItem('selectedType') as any ?? '');
-  //!any type-casting command because localStorage.setItem returns a value of type string
+  //!any type-casting command because localStorage.getItem() returns a value of type string
 
   resolvedRequests = computed(() =>
     //this.requests().filter(r => r.status !== 'Pending')
