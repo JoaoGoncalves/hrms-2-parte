@@ -95,3 +95,6 @@ export class TimeOffManagementComponent {
     );
   }
 }
+
+
+/* NEXT- acrescentar search por tipo de request, e acrescentar estatisica - 6.4.1 */
