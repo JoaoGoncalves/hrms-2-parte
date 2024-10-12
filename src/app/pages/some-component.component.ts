@@ -21,6 +21,7 @@ export class SomeComponent {
   }, {
     equal: (previous, current) => {
       return previous.id === current.id
+      //return previous.age === current.age
     }
   })
 
@@ -33,6 +34,7 @@ export class SomeComponent {
     this.user.update(value => ({
       ...value,
       age: 20,
+      //age: 30,
     }));
   }
 
