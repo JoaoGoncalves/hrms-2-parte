@@ -1,7 +1,7 @@
 {
   "employees": [
     {
-      "id": "1",
+      "id": 1,
       "firstName": "Mikael",
       "lastName": "Åkerfeldt",
       "email": "mikael.akerfeldt@example.com",
@@ -11,7 +11,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "2",
+      "id": 2,
       "firstName": "Steven",
       "lastName": "Wilson",
       "email": "steven.wilson@example.com",
@@ -21,7 +21,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "3",
+      "id": 3,
       "firstName": "John",
       "lastName": "Petrucci",
       "email": "john.petrucci@example.com",
@@ -31,7 +31,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "4",
+      "id": 4,
       "firstName": "Jordan",
       "lastName": "Rudess",
       "email": "jordan.rudess@example.com",
@@ -41,7 +41,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "5",
+      "id": 5,
       "firstName": "James",
       "lastName": "LaBrie",
       "email": "james.labrie@example.com",
@@ -51,7 +51,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "6",
+      "id": 6,
       "firstName": "Neal",
       "lastName": "Morse",
       "email": "neal.morse@example.com",
@@ -61,7 +61,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "7",
+      "id": 7,
       "firstName": "Mike",
       "lastName": "Portnoy",
       "email": "mike.portnoy@example.com",
@@ -71,7 +71,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "8",
+      "id": 8,
       "firstName": "Geddy",
       "lastName": "Lee",
       "email": "geddy.lee@example.com",
@@ -81,7 +81,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "9",
+      "id": 9,
       "firstName": "Alex",
       "lastName": "Lifeson",
       "email": "alex.lifeson@example.com",
@@ -91,7 +91,7 @@
       "profilePicture": "assets/images/profile-picture.webp"
     },
     {
-      "id": "10",
+      "id": 10,
       "firstName": "Serj",
       "lastName": "Tankyan",
       "email": "serj.tankyan@example.com",
@@ -103,7 +103,7 @@
   ],
   "projects": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Large Hadron Collider",
       "description": "This thing is huge!",
       "image": "assets/images/hadron-collider.jpg",
@@ -117,7 +117,7 @@
       ]
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "The Dark Side of the Moon",
       "description": "The best album ever!",
       "image": "assets/images/dark-side-of-the-moon.jpg",
@@ -133,7 +133,7 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Golden Gate Bridge",
       "description": "The most beautiful bridge in the world!",
       "image": "assets/images/golden-gate-bridge.jpg",
@@ -143,7 +143,7 @@
       ]
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "The Wall",
       "description": "The best album ever... or a great edifice protecting us from the White Walkers!",
       "image": "assets/images/the-wall.avif",
@@ -155,7 +155,7 @@
   ],
   "candidates": [
     {
-      "id": "1",
+      "id": 1,
       "firstName": "Jon",
       "lastName": "Snow",
       "email": "jon.snow@example.com",
@@ -165,7 +165,7 @@
       "offerAccepted": false
     },
     {
-      "id": "2",
+      "id": 2,
       "firstName": "Arya",
       "lastName": "Stark",
       "email": "arya.stark@example.com",
@@ -175,7 +175,7 @@
       "offerAccepted": true
     },
     {
-      "id": "3",
+      "id": 3,
       "firstName": "Daenerys",
       "lastName": "Targaryen",
       "email": "daenerys.targaryen",
@@ -187,7 +187,15 @@
   ],
   "time-off-requests": [
     {
-      "id": "2",
+      "id": 1,
+      "employeeId": 2,
+      "startDate": "2023-09-19T07:24:33.180Z",
+      "endDate": "2023-09-23T07:24:33.180Z",
+      "type": "Vacation",
+      "status": "Pending"
+    },
+    {
+      "id": 2,
       "employeeId": 1,
       "startDate": "2023-09-19T07:24:33.180Z",
       "endDate": "2023-09-23T07:24:33.180Z",
@@ -195,12 +203,12 @@
       "status": "Approved"
     },
     {
-      "id": "3",
+      "id": 3,
       "employeeId": 3,
       "startDate": "2023-09-19T07:24:33.180Z",
       "endDate": "2023-09-23T07:24:33.180Z",
       "type": "Vacation",
-      "status": "Rejected"
+      "status": "Pending"
     }
   ]
 }
