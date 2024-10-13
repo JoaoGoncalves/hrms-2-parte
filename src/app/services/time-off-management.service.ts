@@ -51,6 +51,7 @@ export class TimeOffManagementService {
   );
 
   approveRequest(request: TimeOffRequest) {
+    console.log(request);
     this.approveRequest$.next(request);
   }
 

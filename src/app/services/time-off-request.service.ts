@@ -33,6 +33,7 @@ export class TimeOffRequestService {
   }
 
   deleteRequest(id: number) {
+    console.log(id);
     return this.http.delete(`/time-off-requests/${id}`);
   }
 

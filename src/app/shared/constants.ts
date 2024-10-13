@@ -1,7 +1,8 @@
 import { InjectionToken } from "@angular/core"
 
 const CONSTANTS = {
-  apiUrl: 'https://my-json-server.typicode.com/JoaoGoncalves/hrms-api',
+  apiUrl: 'http://localhost:3000',
+  //apiUrl: 'https://my-json-server.typicode.com/JoaoGoncalves/hrms-api',
 }
 
 export const Constants = new InjectionToken('Constants', {
