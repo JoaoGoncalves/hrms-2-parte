@@ -43,5 +43,9 @@ export class HeaderComponent {
     this.notificationService.markAsRead(notification);
   }
 
+  constructor(){
+    this.notificationService.connect();
+  }
+
 
 }
