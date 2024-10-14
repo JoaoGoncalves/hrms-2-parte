@@ -92,3 +92,30 @@ export class TimeOffManagementComponent {
     this.timeOffsService.deleteRequest(request);
   }
 }
+
+
+//! para testa no final ver no dev tools a resposta , como é logico nao atualiza a view, porque o json-server no github nao atualiza os dados.
+
+//! podemos fazer a instalação local e configurar um proxy no angular.
+
+// 1-
+/*
+  instalar json-server e npm-run-all localmente
+  npm i -g json-server npm-run-all
+*/
+
+// 2- vriar scripts no package json
+/*
+  "init": "npm-run-all --parallel mock start",
+  "mock": "json-server --watch db.json"
+*/
+
+// 3- mudar url nas CONSTANTS
+/*
+  const CONSTANTS = {
+  apiUrl: 'http://localhost:3000',
+  //apiUrl: 'https://my-json-server.typicode.com/JoaoGoncalves/hrms-api',
+}
+
+ se testar e der erro acrescentar proxy e ajustar na options do serve do angular.json
+*/
