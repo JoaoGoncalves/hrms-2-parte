@@ -12,7 +12,8 @@ import { interval, map } from 'rxjs';
 })
 export class SomeComponent {
 
-  // 1 -
+  // 1 - sem o equal como opcao
+  //! 2- como cria um novo objecto, a função é sempre recalculada, podemos evitar esse re-execução, passando a opção "equal" e a variavel que querremos como controle se não mudar nao reexecuta
   user = signal({
     id: 1,
     firstName: 'Jon',
