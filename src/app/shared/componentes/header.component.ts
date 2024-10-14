@@ -47,5 +47,7 @@ export class HeaderComponent {
     this.notificationService.connect();
   }
 
+  //! depois disto vamos criar o state management para no TimeOffComponent que tem umas chamadas HTTP, e que deixamos sem funcionar os metodos de aprovacao, nao aprovacao, delete, ...
+
 
 }

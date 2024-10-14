@@ -8,6 +8,9 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 })
 export class NotificationService {
   private readonly socketService = inject(SocketService);
+  //#notifications = toSignal(this.socketService.notifications$, {requireSync: true});
+  //! Não vamos fazer a coneccao no serviço, porque assim cada componente que utilizaria o serviço iria abrir uma ligacao ao socket, no entanto mesmo que as componentes sejam "destruidas", as ligacoes de websocket continuariam "abertas".
+  //! vamos deixar essa responsabildiade para as componentes, acrescentando o metodo "connect", linha 32
 
   #notifications = signal<Notification[]>(
     localStorage.getItem('notifications')
@@ -26,6 +29,7 @@ export class NotificationService {
   })
   }
 
+  //! disponibilizaar o metodo para cada componente, subscrever o websocket como Observable, usar o takeUntilDestroy, para desubscrever o observable, e atualizar as notificações que virão do websocket
   connect() {
     return this.socketService.notifications$.pipe(
         takeUntilDestroyed(),
@@ -33,6 +37,8 @@ export class NotificationService {
         this.#notifications.set(notifications);
     });
 }
+//! este metodos nunca é invokado no serviço,  vamos deixar as componentes fazer o connect, no constructor on sera passado para o operador takeuntil destroy o contexto de DI
+
 
   addNotification(notification: Notification) {
     this.#notifications.update(value => [...value, notification]);
