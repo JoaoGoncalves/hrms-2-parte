@@ -12,9 +12,8 @@ export class NotificationService {
   #notifications = signal<Notification[]>(
     localStorage.getItem('notifications')
       ? JSON.parse(localStorage.getItem('notifications') ?? '')
-      : []
+      : [{id: 1, title: 'qualquer coisa pra fazer', message: 'ola mundo', type: "TimeOff", read: false, date: 'hoje'}]
   );
-
 
     notifications = this.#notifications.asReadonly();
     readNotifications = computed(() => this.#notifications().filter(n => n.read));

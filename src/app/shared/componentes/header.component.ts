@@ -20,6 +20,11 @@ import { NgFor, NgIf } from '@angular/common';
         <li *ngFor="let notification of notifications()">
           <h4>{{ notification.title }}</h4>
           <span>{{ notification.message }}</span>
+          @if (!notification.read) {
+            <button (click)="markNotificationAsRead(notification)">
+              Mark as Read
+            </button>
+          }
           <button
             *ngIf="!notification.read"
             (click)="markNotificationAsRead(notification)"
