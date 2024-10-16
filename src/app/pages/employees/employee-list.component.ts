@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { AsyncPipe, NgComponentOutlet, NgFor } from '@angular/common';
+import { ConfirmationDialogComponent } from '../../shared/componentes/confirmation-dialog.component';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [NgFor, AsyncPipe, NgComponentOutlet],
+  imports: [NgFor, AsyncPipe, ConfirmationDialogComponent],
   template: `
     <table>
       <thead>
@@ -20,12 +21,15 @@ import { AsyncPipe, NgComponentOutlet, NgFor } from '@angular/common';
           <td>{{ employee.firstName }} {{ employee.lastName }}</td>
           <td appTruncate>{{ employee.position }}</td>
           <td>
-            <button (click)="showConfirmationDialog()">Delete</button>
+            <button (click)="isConfirmationOpen = true">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <ng-container *ngComponentOutlet='confirmDialog'></ng-container>
+    <!-- <ng-container *ngComponentOutlet='confirmDialog'></ng-container> -->
+     @defer {
+      <app-confirmation-dialog [isConfirmationOpen]='isConfirmationOpen'></app-confirmation-dialog>
+     }
   `,
   styles: ``
 })
@@ -36,14 +40,10 @@ export class EmployeeListComponent {
   isConfirmationOpen = false;
   confirmDialog: any;
 
-  /* constructor(private readonly employeeService: EmployeeService){
-    this.employees$ = this.employeeService.getEmployees();
-  } */
-
-  async showConfirmationDialog(){
+  /* async showConfirmationDialog(){
     this.confirmDialog = await import('../../shared/componentes/confirmation-dialog.component').then( m => m.ConfirmationDialogComponent);
 
     this.isConfirmationOpen = true;
-  }
+  } */
 
 }
