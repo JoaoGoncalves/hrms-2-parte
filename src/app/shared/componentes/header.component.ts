@@ -17,23 +17,22 @@ import { NgFor, NgIf } from '@angular/common';
     <dialog [open]="notificationsOpen()">
       <h3>Notifications</h3>
       <ul>
-        <li *ngFor="let notification of notifications()">
-          <h4>{{ notification.title }}</h4>
-          <span>{{ notification.message }}</span>
-          @if (!notification.read) {  //! no inports needed, can wrap more elements, more readable
-            <button (click)="markNotificationAsRead(notification)">
-              Mark as Read
-            </button>
-          } @else {
-            <span title="notification is read!"> ✔︎ </span>
-          }
-         <!--  <button
-            *ngIf="!notification.read"
-            (click)="markNotificationAsRead(notification)"
-          >
-            Mark as Read
-          </button> -->
-        </li>
+        <!-- @for() onde é facil definir o trackBy -->
+        @for (notification of notifications(); track notification.id) {
+          <li>
+            <h1>{{ notification.title }} {{$index + 1}} / {{$count}}</h1>
+            <span>{{ notification.message }}</span>
+            @if (!notification.read) {
+              <button (click)="markNotificationAsRead(notification)">
+                Mark as Read
+              </button>
+            } @else {
+              <span title="notification is read!"> ✔︎ </span>
+            }
+          </li>
+        } @empty {
+          <p>No Notifications to Display</p>
+        }
       </ul>
       <button (click)="notificationsOpen.set(false)">Close</button>
     </dialog>
