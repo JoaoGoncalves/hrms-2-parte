@@ -21,15 +21,18 @@ import { ConfirmationDialogComponent } from '../../shared/componentes/confirmati
           <td>{{ employee.firstName }} {{ employee.lastName }}</td>
           <td appTruncate>{{ employee.position }}</td>
           <td>
-            <button (click)="isConfirmationOpen = true">Delete</button>
+            <button #deleteButton (click)="isConfirmationOpen = true" >Delete</button>
+            <!-- @defer (when isConfirmationOpen) { --> <!-- este defer so acontece uma vez mesmo que a variavel booleanda seja atualizada -->
+             <!-- ter atencao de estar no mesmo "node" o "node" pai da interaction -->
+            @defer (on interaction(deleteButton)) {
+              <app-confirmation-dialog [isConfirmationOpen]='isConfirmationOpen'></app-confirmation-dialog>
+            }
           </td>
         </tr>
       </tbody>
     </table>
-    <!-- <ng-container *ngComponentOutlet='confirmDialog'></ng-container> -->
-     @defer {
-      <app-confirmation-dialog [isConfirmationOpen]='isConfirmationOpen'></app-confirmation-dialog>
-     }
+
+
   `,
   styles: ``
 })
@@ -39,11 +42,5 @@ export class EmployeeListComponent {
 
   isConfirmationOpen = false;
   confirmDialog: any;
-
-  /* async showConfirmationDialog(){
-    this.confirmDialog = await import('../../shared/componentes/confirmation-dialog.component').then( m => m.ConfirmationDialogComponent);
-
-    this.isConfirmationOpen = true;
-  } */
 
 }

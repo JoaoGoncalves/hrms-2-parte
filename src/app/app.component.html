@@ -7,5 +7,9 @@
   </section>
   <!-- <app-file-upload label="upload-profile" accept="image/jpeg,image/png"></app-file-upload> -->
   <!--  <app-some-component></app-some-component> -->
-  <app-footer></app-footer>
+  @defer(on viewport){
+    <app-footer></app-footer>
+  } @placeholder {
+    <div>footer</div>
+  }
 </main>
