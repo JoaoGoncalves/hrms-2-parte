@@ -7,7 +7,7 @@ import { Component, EventEmitter, input, Input, output, Output } from '@angular/
   imports: [NgIf, NgFor],
   template: `
     <section>
-      <label for="upload">{{label}}</label>
+      <label for="upload">{{label()}}</label>
       <input type="file" id="upload" (change)="onFileSeleted($event)">
       @if (errorMessage) {
         <div>
