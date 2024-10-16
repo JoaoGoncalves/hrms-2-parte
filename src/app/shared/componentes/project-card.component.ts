@@ -7,12 +7,15 @@ import { AsyncPipe, NgIf } from '@angular/common';
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
   template: `
-    <section *ngIf="project$ | async as project">
+
+    @if (project$ | async ; as project) {  <!-- stil can use ann alias with the async pipe -->
+      <section>
       <img [src]="project.image" width="150px"/>
       <p> {{project.name}}</p>
     </section>
+    }
   `,
   styles: ``
 })

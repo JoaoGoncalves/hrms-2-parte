@@ -6,7 +6,7 @@ import { NgFor, NgIf } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor],
   template: `
     <header>
       <h2>HRMS</h2>
@@ -20,17 +20,19 @@ import { NgFor, NgIf } from '@angular/common';
         <li *ngFor="let notification of notifications()">
           <h4>{{ notification.title }}</h4>
           <span>{{ notification.message }}</span>
-          @if (!notification.read) {
+          @if (!notification.read) {  //! no inports needed, can wrap more elements, more readable
             <button (click)="markNotificationAsRead(notification)">
               Mark as Read
             </button>
+          } @else {
+            <span title="notification is read!"> ✔︎ </span>
           }
-          <button
+         <!--  <button
             *ngIf="!notification.read"
             (click)="markNotificationAsRead(notification)"
           >
             Mark as Read
-          </button>
+          </button> -->
         </li>
       </ul>
       <button (click)="notificationsOpen.set(false)">Close</button>
